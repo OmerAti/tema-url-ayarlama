@@ -45,14 +45,6 @@ function ram_check() {
         return '<span style="color:red;">Bilgi Bulunamadı</span>';
     }
 }
-function cpu_check() {
-    $cpu_info = shell_exec('cat /proc/cpuinfo | grep "model name" | uniq');
-    if (strpos($cpu_info, 'Intel') !== false || strpos($cpu_info, 'AMD') !== false) {
-        return '<span style="color:green;">' . $cpu_info . '</span>';
-    } else {
-        return '<span style="color:red;">Bilgi Bulunamadı</span>';
-    }
-}
 
 function https_support_check() {
     if (!empty($_SERVER['HTTPS']) && $_SERVER['HTTPS'] !== 'off') {
