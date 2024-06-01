@@ -116,7 +116,6 @@ if (!class_exists('CustomThemeSwitcher')) {
         <li>PHP Sürümü: <?php echo php_version_check(); ?></li>
         <li>Veritabanı: <?php echo database_check(); ?></li>
         <li>RAM: <?php echo ram_check(); ?></li>
-        <li>CPU: <?php echo cpu_check(); ?></li>
         <li>HTTPS Desteği: <?php echo https_support_check(); ?></li>                </ul>
             </ul>
         </div>
