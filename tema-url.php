@@ -188,6 +188,25 @@ public function tema_degistir()
     $amp_sayfa_masaustune_gizle = get_option('amp_sayfa_masaustune_gizle');
     $iframe_aktif = get_option('iframe_aktif');
 
+    $user_agent = $_SERVER['HTTP_USER_AGENT'];
+    $bot_agents = array(
+        'Googlebot', 'Bingbot', 'Slurp', 'DuckDuckBot', 'Baiduspider', 'YandexBot', 'Sogou', 'Exabot', 'facebot', 'ia_archiver'
+    );
+
+    foreach ($bot_agents as $bot_agent) {
+        if (strpos($user_agent, $bot_agent) !== false) {
+            if (!empty($masaustu_tema) && wp_get_theme($masaustu_tema)->exists() && !is_child_theme($masaustu_tema)) {
+                $current_theme = wp_get_theme();
+                $active_theme = $current_theme->get_stylesheet();
+
+                if ($masaustu_tema !== $active_theme) {
+                    switch_theme($masaustu_tema, $masaustu_tema);
+                }
+            }
+            return;
+        }
+    }
+
     if (wp_is_mobile() && $amp_tema_url && get_option('yonlendirme_hizli') && !isset($_GET['no_redirect'])) {
         if (!$amp_sayfa_masaustune_gizle || ($amp_sayfa_masaustune_gizle && $amp_tema_url)) {
             if ($iframe_aktif) {
@@ -233,8 +252,6 @@ public function tema_degistir()
         }
     }
 }
-
-
 
 public function enqueue_admin_styles()
 {
