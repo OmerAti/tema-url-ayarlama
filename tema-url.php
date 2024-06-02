@@ -191,9 +191,31 @@ public function tema_degistir()
     if (wp_is_mobile() && $amp_tema_url && get_option('yonlendirme_hizli') && !isset($_GET['no_redirect'])) {
         if (!$amp_sayfa_masaustune_gizle || ($amp_sayfa_masaustune_gizle && $amp_tema_url)) {
             if ($iframe_aktif) {
-                echo '<!DOCTYPE html><html><head><title>Redirecting...</title></head><body>';
-                echo '<iframe src="' . esc_url($amp_tema_url) . '" style="border:none;width:100%;height:100vh;"></iframe>';
-                echo '</body></html>';
+                echo '<!DOCTYPE html>
+                <html>
+                <head>
+                    <meta name="viewport" content="width=device-width, initial-scale=1">
+                    <style>
+                        html, body {
+                            margin: 0;
+                            padding: 0;
+                            height: 100%;
+                            overflow: hidden;
+                        }
+                        iframe {
+                            border: none;
+                            width: 100%;
+                            height: 100%;
+                            position: fixed;
+                            top: 0;
+                            left: 0;
+                        }
+                    </style>
+                </head>
+                <body>
+                    <iframe src="' . esc_url($amp_tema_url) . '"></iframe>
+                </body>
+                </html>';
                 exit;
             } else {
                 wp_redirect($amp_tema_url);
@@ -211,6 +233,7 @@ public function tema_degistir()
         }
     }
 }
+
 
 
 public function enqueue_admin_styles()
